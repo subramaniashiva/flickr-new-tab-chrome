@@ -1,0 +1,20 @@
+{
+  "name": "Flickr New Tab page",
+  "description": "Override the new tab page with a photo from Flickr Stream",
+  "version": "0.1",
+  "incognito": "split",
+  "browser_action": {
+    "default_icon": "icons/icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Configure Flickr Tags"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "icons": {
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+    },
+  "manifest_version": 2
+}
