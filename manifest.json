@@ -11,6 +11,11 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": true
+  },
+  "permissions": ["tabs"],
   "icons": {
     "32": "icons/icon32.png",
     "48": "icons/icon48.png",
