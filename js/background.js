@@ -2,41 +2,51 @@ function processOutput(data) {
     var nextPhotoIndex, nextPhoto, newIndex, newPhoto;
     if (data) {
         data = JSON.parse(data);
-        if (data.stat != 'fail' && data.total !== 0) {
-            nextPhotoIndex = getNextPhotoIndex(data);
-            nextPhoto = data.photos.photo[nextPhotoIndex];
-            localStorage.setItem('nextFlickrImage', getImageUrl(nextPhoto));
-            localStorage.setItem('nextOwner', nextPhoto.owner);
-            localStorage.setItem('nextId', nextPhoto.id);
-            localStorage.setItem('flickrData', JSON.stringify(data));
+        if (data.stat != 'fail' && data.photos.total !== "0") {
             displayedImages = 0;
+            console.log('data is ', data);
+            setNextPhoto(data);
+        } else {
+            console.log('No data. Fall back to default');
+            localStorage.setItem('flickrTag', null);
+            localStorage.setItem('flickrRecrawl', 'true');
         }
     } else {
         console.log('fail dude');
     }
 }
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function getImageUrl(photoObject) {
-    var imageUrl = '';
-    if (photoObject) {
+    var imageUrl;
+    if (photoObject && photoObject.url_l) {
         //imageUrl = 'http://farm' + photoObject.farm + '.static.flickr.com/' + photoObject.server + '/' + photoObject.id + '_' + photoObject.secret + '_b.jpg';
         imageUrl = photoObject.url_l;
-        console.log('image url is ', imageUrl);
+        //console.log('image url is ', imageUrl);
+        //console.log('photo object is ', photoObject);
     }
     return imageUrl;
 }
 
 function getNextPhotoIndex(dataObject) {
-    var nextPhotoIndex = getRandomInt(1, dataObject.photos.photo.length);
-    var nextPhoto = dataObject.photos.photo[nextPhotoIndex];
-    if (nextPhoto.url_l === null || nextPhoto.url_l === undefined || nextPhoto.url_l === 'undefined') {
-        nextPhotoIndex = getNextPhotoIndex(dataObject);
+    if (displayedImages < dataObject.photos.photo.length) {
+        displayedImages += 1;
+        return displayedImages;
+    } else {
+        displayedImages = 0;
+        return displayedImages;
     }
-    return nextPhotoIndex;
+}
+
+function setNextPhoto(dataObject) {
+    var nextPhotoIndex = getNextPhotoIndex(dataObject);
+    var nextPhoto = dataObject.photos.photo[nextPhotoIndex];
+    if(getImageUrl(nextPhoto) !== '' || getImageUrl(nextPhoto) !== undefined) {
+      localStorage.setItem('nextFlickrImage', getImageUrl(nextPhoto));
+      localStorage.setItem('nextOwner', nextPhoto.owner);
+      localStorage.setItem('nextId', nextPhoto.id);
+      localStorage.setItem('flickrData', JSON.stringify(dataObject));
+    } else {
+      setNextPhoto(dataObject);
+    }
 }
 
 function callAjax(url, callback, params) {
@@ -52,9 +62,10 @@ function callAjax(url, callback, params) {
     xmlhttp.send();
 }
 var apiKey = '',
-    currentTag, recrawl, prefetchImg, displayedImages = 0;
+    currentTag, recrawl, prefetchImg, queryString, displayedImages = 0;
 chrome.tabs.onCreated.addListener(function(tab) {
-    var recrawl, data, nextPhotoIndex, nextPhoto;
+    console.log('bg event fired');
+    var recrawl, data;
     currentTag = localStorage.getItem('flickrTag');
     if (currentTag) {
         queryString = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&tags=' + currentTag + '&format=json&nojsoncallback=1&safe_search=1&content_type=1&sort=interestingness-desc&extras=url_l';
@@ -74,17 +85,12 @@ chrome.tabs.onCreated.addListener(function(tab) {
     data = localStorage.getItem('flickrData');
     if (data) {
         data = JSON.parse(data);
-        if(data.photos.photo.length != displayedImages) {
-          nextPhotoIndex = getNextPhotoIndex(data);
-          nextPhoto = data.photos.photo[nextPhotoIndex];
-          localStorage.setItem('nextFlickrImage', getImageUrl(nextPhoto));
-          localStorage.setItem('nextOwner', nextPhoto.owner);
-          localStorage.setItem('nextId', nextPhoto.id);
-          displayedImages++;
-          prefetchImg = new Image();
-          prefetchImg.src = localStorage.getItem('nextFlickrImage');
+        if (data.photos.photo.length != displayedImages) {
+            setNextPhoto(data);
+            prefetchImg = new Image();
+            prefetchImg.src = localStorage.getItem('nextFlickrImage');
         } else {
-          callAjax(queryString, processOutput);
+            callAjax(queryString, processOutput);
         }
     } else {
         callAjax(queryString, processOutput);
