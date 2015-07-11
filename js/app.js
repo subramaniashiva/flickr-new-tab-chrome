@@ -1,4 +1,5 @@
-console.log('app here');
+// Function ot generate random number.
+// Used for loading fefault images
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -7,7 +8,6 @@ document.onreadystatechange = function() {
     var dimgTag = document.getElementById('flickrPhoto'),
         dlinkTag = document.getElementById('flickrLink');
     if (state === 'complete') {
-        console.log('app ready');
         if (localStorage.getItem('nextFlickrImage') !== null) {
             var imgLoaded = false;
             dimgTag.setAttribute('src', localStorage.getItem('nextFlickrImage'));
