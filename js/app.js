@@ -10,12 +10,13 @@ document.onreadystatechange = function() {
         index = getRandomInt(1, 7),
         imgLoaded = false,
         defaultLinks = ['https://www.flickr.com/photos/premnath/7709816036/',
-                        'https://www.flickr.com/photos/104818937@N06/18607432546/'.
-                        'https://www.flickr.com/photos/premnath/10073243713/',
-                        'https://www.flickr.com/photos/premnath/15125443389/',
-                        'https://www.flickr.com/photos/premnath/10456834124/',
-                        'https://www.flickr.com/photos/premnath/8693469848/',
-                        'https://www.flickr.com/photos/104818937@N06/16986756492/'];
+            'https://www.flickr.com/photos/104818937@N06/18607432546/',
+            'https://www.flickr.com/photos/premnath/10073243713/',
+            'https://www.flickr.com/photos/premnath/15125443389/',
+            'https://www.flickr.com/photos/premnath/10456834124/',
+            'https://www.flickr.com/photos/premnath/8693469848/',
+            'https://www.flickr.com/photos/104818937@N06/16986756492/'
+        ];
     if (state === 'complete') {
         if (localStorage.getItem('nextFlickrImage') !== null || localStorage.getItem('nextFlickrImage') !== undefined) {
             dimgTag.setAttribute('src', localStorage.getItem('nextFlickrImage'));
@@ -33,10 +34,11 @@ document.onreadystatechange = function() {
         setTimeout(function() {
             if (!imgLoaded) {
                 dimgTag.setAttribute('src', 'img/default_' + index + '.jpg');
-                if (dlinkTag) {
-                    dlinkTag.setAttribute('href', defaultLinks[index-1];);
-                }
+                console.log('url is ', defaultLinks[index - 1]);
+                //if (dlinkTag) {
+                    dlinkTag.setAttribute('href', defaultLinks[index - 1]);
+                //}
             }
-        }, 1200);
+        }, 1000);
     }
 }

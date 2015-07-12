@@ -3,8 +3,8 @@ document.onreadystatechange = function() {
     if(state === 'complete') {
       var currentTag = localStorage.getItem('flickrTag'),
           defaultTag = 'No tag selected !';
-      if(currentTag) {
-        defaultTag = currentTag;
+      if(currentTag && currentTag !== 'null') {
+        document.getElementById('currentTag').innerText = currentTag;
       }
       document.getElementById('currentTag').innerText = defaultTag;
       var submitButton = document.getElementById('submit');
