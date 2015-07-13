@@ -11,11 +11,17 @@ document.onreadystatechange = function() {
       var submitButton = document.getElementById('submit');
       var inputTag = document.getElementById('tag');
       var clearButton = document.getElementById('clear');
+      var deleteButton = document.getElementById('delete');
       var setTag = function(value) {
         localStorage.setItem('flickrTag', value);
         document.getElementById('currentTag').innerText = value;
         localStorage.setItem('flickrRecrawl', 'true');
         inputTag.value = '';
+      }
+      var deleteTags = function() {
+        localStorage.removeItem('flickrTag');
+        document.getElementById('currentTag').innerText = defaultTag;
+        localStorage.setItem('flickrRecrawl', 'true');
       }
       submitButton.addEventListener('click', function() {
         if(inputTag.value) {
@@ -23,15 +29,11 @@ document.onreadystatechange = function() {
         }
       });
       inputTag.addEventListener('keypress', function(event) {
-        console.log(event);
         if(event.keyCode === 13 && inputTag.value) {
           setTag(inputTag.value);
         }
       });
-      clearButton.addEventListener('click', function() {
-        localStorage.removeItem('flickrTag');
-        document.getElementById('currentTag').innerText = defaultTag;
-        localStorage.setItem('flickrRecrawl', 'true');
-      });
+      clearButton.addEventListener('click', deleteTags);
+      deleteButton.addEventListener('click', deleteTags);
     }
 }

@@ -7,6 +7,7 @@ document.onreadystatechange = function() {
     var state = document.readyState;
     var dimgTag = document.getElementById('flickrPhoto'),
         dlinkTag = document.getElementById('flickrLink'),
+        defaultLinkSet = false,
         index = getRandomInt(1, 7),
         imgLoaded = false,
         defaultLinks = ['https://www.flickr.com/photos/premnath/7709816036/',
@@ -19,27 +20,28 @@ document.onreadystatechange = function() {
         ];
     if (state === 'complete') {
         if (localStorage.getItem('nextFlickrImage') !== null || localStorage.getItem('nextFlickrImage') !== undefined) {
-            dimgTag.setAttribute('src', localStorage.getItem('nextFlickrImage'));
             dimgTag.onload = function() {
                 imgLoaded = true;
-                dimgTag.style.visibility='visible';
-                if (dlinkTag) {
+                dimgTag.style.visibility = 'visible';
+                if (dlinkTag && !defaultLinkSet) {
                     dlinkTag.setAttribute('href', 'http://flickr.com/photos/' + localStorage.getItem('nextOwner') + '/' + localStorage.getItem('nextId'));
                 }
             }
-            dimgTag.onerror = function() {
-                console.log('error');
+            dimgTag.onerror = function(e) {
+                console.log('error', e);
             }
+            dimgTag.setAttribute('src', localStorage.getItem('nextFlickrImage'));
         }
         // Load default image, since the image from flickr is taking long time
         setTimeout(function() {
             if (!imgLoaded) {
                 dimgTag.setAttribute('src', 'img/default_' + index + '.jpg');
-                dimgTag.style.visibility='visible';
+                dimgTag.style.visibility = 'visible';
                 if (dlinkTag) {
+                    defaultLinkSet = true;
                     dlinkTag.setAttribute('href', defaultLinks[index - 1]);
                 }
             }
-        }, 1000);
+        }, 1200);
     }
 }

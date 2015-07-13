@@ -14,7 +14,7 @@ html, body {
 .title {
   margin-bottom: 0;
 }
-#close {
+#delete {
   position: absolute;
   right: 5px;
   top: 5px;
@@ -33,7 +33,7 @@ html, body {
 #currentTagCont:hover {
   background: #cccccc;
 }
-#currentTagCont:hover #close{
+#currentTagCont:hover #delete{
   visibility: visible;
 }
 .cover {
