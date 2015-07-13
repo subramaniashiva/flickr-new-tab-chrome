@@ -22,6 +22,7 @@ document.onreadystatechange = function() {
             dimgTag.setAttribute('src', localStorage.getItem('nextFlickrImage'));
             dimgTag.onload = function() {
                 imgLoaded = true;
+                dimgTag.style.visibility='visible';
                 if (dlinkTag) {
                     dlinkTag.setAttribute('href', 'http://flickr.com/photos/' + localStorage.getItem('nextOwner') + '/' + localStorage.getItem('nextId'));
                 }
@@ -34,10 +35,10 @@ document.onreadystatechange = function() {
         setTimeout(function() {
             if (!imgLoaded) {
                 dimgTag.setAttribute('src', 'img/default_' + index + '.jpg');
-                console.log('url is ', defaultLinks[index - 1]);
-                //if (dlinkTag) {
+                dimgTag.style.visibility='visible';
+                if (dlinkTag) {
                     dlinkTag.setAttribute('href', defaultLinks[index - 1]);
-                //}
+                }
             }
         }, 1000);
     }
