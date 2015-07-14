@@ -81,8 +81,15 @@ chrome.tabs.onCreated.addListener(function(tab) {
         data = JSON.parse(data);
         if (data.photos.photo.length != displayedImages) {
             setNextPhoto(data);
-            prefetchImg = new Image();
-            prefetchImg.src = localStorage.getItem('nextFlickrImage');
+            //prefetchImg = new Image();
+            var nextPhotoIndex = getNextPhotoIndex(data),
+            nextPhoto = data.photos.photo[nextPhotoIndex];
+            // Logic needs fixing
+            if (getImageUrl(nextPhoto) !== '' || getImageUrl(nextPhoto) !== undefined) {
+                prefetchImg = document.getElementById('nextImg');
+                prefetchImg.src = getImageUrl(nextPhoto);
+                prefetchImg.style.display = 'none';
+            }
         } else {
             callAjax(queryString, processOutput);
         }

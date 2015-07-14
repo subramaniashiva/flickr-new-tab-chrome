@@ -12,7 +12,8 @@
     "newtab": "index.html"
   },
   "background": {
-    "scripts": ["js/background.js"],
+    //"scripts": ["js/background.js"],
+    "page": "background.html",
     "persistent": true
   },
   "permissions": ["tabs"],
