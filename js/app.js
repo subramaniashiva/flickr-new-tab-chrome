@@ -25,6 +25,11 @@ document.onreadystatechange = function() {
                 dimgTag.style.visibility = 'visible';
                 if (dlinkTag && !defaultLinkSet) {
                     dlinkTag.setAttribute('href', 'http://flickr.com/photos/' + localStorage.getItem('nextOwner') + '/' + localStorage.getItem('nextId'));
+                    chrome.extension.sendRequest({
+                        method: 'setNextItem'
+                    }, function(response) {
+                        console.log('called succesfully');
+                    });
                 }
             }
             dimgTag.onerror = function(e) {
@@ -33,7 +38,7 @@ document.onreadystatechange = function() {
             dimgTag.setAttribute('src', localStorage.getItem('nextFlickrImage'));
         }
         // Load default image, since the image from flickr is taking long time
-        setTimeout(function() {
+        /*setTimeout(function() {
             if (!imgLoaded) {
                 dimgTag.setAttribute('src', 'img/default_' + index + '.jpg');
                 dimgTag.style.visibility = 'visible';
@@ -42,6 +47,6 @@ document.onreadystatechange = function() {
                     dlinkTag.setAttribute('href', defaultLinks[index - 1]);
                 }
             }
-        }, 1200);
+        }, 1200);*/
     }
 }
