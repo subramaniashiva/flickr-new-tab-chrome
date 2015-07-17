@@ -5,13 +5,16 @@ function processOutput(data) {
         if (data.stat != 'fail' && data.photos.total !== "0") {
             displayedImages = 0;
             setNextPhoto(data);
+            return;
         } else {
             console.log('No data. Fall back to default');
-            localStorage.setItem('flickrRecrawl', 'true');
         }
     } else {
         console.log('Crawl error from Flickr');
     }
+    // Since we have not received any data from Flickr,
+    // set flickrRecrawl to true
+    localStorage.setItem('flickrRecrawl', 'true')
 }
 // Get the image URL of item to be crawled
 function getImageUrl(photoObject) {
@@ -89,13 +92,11 @@ function setNextItem() {
             data = JSON.parse(data);
             if (data.photos.photo.length != displayedImages) {
                 setNextPhoto(data);
-                prefetchImg = new Image();
                 var nextPhotoIndex = getNextPhotoIndex(data),
                     nextPhoto = data.photos.photo[nextPhotoIndex];
                 if (getImageUrl(nextPhoto) !== '' || getImageUrl(nextPhoto) !== undefined) {
-                    //prefetchImg = document.getElementById('nextImg');
+                    prefetchImg = new Image();
                     prefetchImg.src = localStorage.getItem('nextFlickrImage');
-                    //prefetchImg.style.display = 'none';
                 }
             } else {
                 callAjax(queryString, processOutput);
