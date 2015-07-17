@@ -8,13 +8,34 @@ document.onreadystatechange = function() {
       } else {
         document.getElementById('currentTag').innerText = defaultTag;
       }
-      var submitButton = document.getElementById('submit');
-      var inputTag = document.getElementById('tag');
-      var clearButton = document.getElementById('clear');
-      var deleteButton = document.getElementById('delete');
+      var submitButton = document.getElementById('submit'),
+      inputTag = document.getElementById('tag'),
+      clearButton = document.getElementById('clear'),
+      deleteButton = document.getElementById('delete'),
+      tagsArray, valuesArray, defaultTagCount = 6;
       var setTag = function(value) {
-        localStorage.setItem('flickrTag', value);
-        document.getElementById('currentTag').innerText = value;
+        var currentTag = localStorage.getItem('flickrTag');
+        if(currentTag && currentTag !== 'null') {
+          tagsArray = localStorage.getItem('flickrTag').split(',');
+          valuesArray = value.split(',');
+          console.log('Tags Array is ', tagsArray);
+          console.log('Values Array is ', valuesArray);
+          if(tagsArray.length + valuesArray.length < defaultTagCount + 1) {
+            tagsArray = tagsArray.concat(valuesArray);
+          } else {
+            var length = Math.min(defaultTagCount, valuesArray.length);
+            tagsArray.unshift(valuesArray);
+            tagsArray.length = defaultTagCount;
+            //for(var i = 0; i < length; i++) {
+            //  tagsArray[i] = valuesArray[i];
+            //}
+          }
+          localStorage.setItem('flickrTag', tagsArray.join(','));
+        } else {
+          localStorage.setItem('flickrTag', value);
+        }
+        //localStorage.setItem('flickrTag', value);
+        document.getElementById('currentTag').innerText = localStorage.getItem('flickrTag');
         localStorage.setItem('flickrRecrawl', 'true');
         inputTag.value = '';
       }
