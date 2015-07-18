@@ -14,30 +14,31 @@ html, body {
 .title {
   margin-bottom: 0;
 }
-#delete {
+.delete {
   position: absolute;
   right: 5px;
   top: 5px;
   cursor: pointer;
   visibility: hidden;
 }
-#currentTagCont {
+.singleTag {
   padding: 10px 15px 10px 5px;
   width: auto;
   float: left;
   position: relative;
+  margin-left: 5px;
 }
-#currentTag {
-  
-}
-#currentTagCont:hover {
+.singleTag:hover {
   background: #cccccc;
 }
-#currentTagCont:hover #delete{
+.singleTag:hover .delete{
   visibility: visible;
 }
 .cover {
   width: 100%;
   height: auto;
   visibility: hidden;
+}
+#template, #currentTag {
+  display: none;
 }
