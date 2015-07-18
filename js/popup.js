@@ -18,23 +18,16 @@ document.onreadystatechange = function() {
         if(currentTag && currentTag !== 'null') {
           tagsArray = localStorage.getItem('flickrTag').split(',');
           valuesArray = value.split(',');
-          console.log('Tags Array is ', tagsArray);
-          console.log('Values Array is ', valuesArray);
           if(tagsArray.length + valuesArray.length < defaultTagCount + 1) {
             tagsArray = tagsArray.concat(valuesArray);
           } else {
-            var length = Math.min(defaultTagCount, valuesArray.length);
-            tagsArray.unshift(valuesArray);
+            [].unshift.apply(tagsArray, valuesArray);
             tagsArray.length = defaultTagCount;
-            //for(var i = 0; i < length; i++) {
-            //  tagsArray[i] = valuesArray[i];
-            //}
           }
           localStorage.setItem('flickrTag', tagsArray.join(','));
         } else {
           localStorage.setItem('flickrTag', value);
         }
-        //localStorage.setItem('flickrTag', value);
         document.getElementById('currentTag').innerText = localStorage.getItem('flickrTag');
         localStorage.setItem('flickrRecrawl', 'true');
         inputTag.value = '';
