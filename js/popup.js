@@ -18,9 +18,9 @@ document.onreadystatechange = function() {
       // Function to set the tags entered by the user
       function setTag(value) {
         var currentTag = localStorage.getItem('flickrTag');
+        valuesArray = value.split(',');
         if(currentTag && currentTag !== 'null') {
           tagsArray = currentTag.split(',');
-          valuesArray = value.split(',');
           if(tagsArray.length + valuesArray.length < defaultTagCount + 1) {
             tagsArray = tagsArray.concat(valuesArray);
           } else {
@@ -29,8 +29,8 @@ document.onreadystatechange = function() {
           }
           localStorage.setItem('flickrTag', tagsArray.join(','));
         } else {
-          localStorage.setItem('flickrTag', value);
-          tagsArray[0] = value;
+          valuesArray.length = Math.min(valuesArray.length, defaultTagCount);
+          localStorage.setItem('flickrTag', valuesArray.join(','));
         }
         addTagsUI();
         localStorage.setItem('flickrRecrawl', 'true');
@@ -38,12 +38,16 @@ document.onreadystatechange = function() {
       // Function to delete all tags
       function deleteTags() {
         localStorage.removeItem('flickrTag');
-        document.getElementById('currentTag').innerText = defaultTag;
         localStorage.setItem('flickrRecrawl', 'true');
+        var currentTagCont = document.getElementById('currentTagCont');
+        currentTagCont.innerHTML = '';
+        var defaultTagText = document.getElementById('currentTag');
+        defaultTagText.style.display = 'block';
       }
 
       function addTagsUI() {
         var currentTagCont = document.getElementById('currentTagCont'),
+            defaultTagText = document.getElementById('currentTag'),
             tagUnit, currentArray = localStorage.getItem('flickrTag');
         currentTagCont.innerHTML = '';
         if(currentArray && currentArray !== null) {
@@ -52,9 +56,9 @@ document.onreadystatechange = function() {
             tagUnit = document.getElementById('template').innerHTML;
             tagUnit = tagUnit.replace('{{tag}}', currentArray[i]);
             currentTagCont.innerHTML += tagUnit;
+            defaultTagText.style.display = 'none';
           }
         } else {
-          var defaultTagText = document.getElementById('currentTag');
           defaultTagText.style.display = 'block';
         }
       }
