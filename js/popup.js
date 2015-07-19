@@ -12,13 +12,14 @@ document.onreadystatechange = function() {
       var submitButton = document.getElementById('submit'),
       inputTag = document.getElementById('tag'),
       clearButton = document.getElementById('clear'),
-      deleteButton = document.getElementById('delete'),
-      tagsArray, valuesArray, defaultTagCount = 6;
+      tagsArray = [],
+      defaultTagCount = 6,
+      valuesArray;
       // Function to set the tags entered by the user
-      var setTag = function(value) {
+      function setTag(value) {
         var currentTag = localStorage.getItem('flickrTag');
         if(currentTag && currentTag !== 'null') {
-          tagsArray = localStorage.getItem('flickrTag').split(',');
+          tagsArray = currentTag.split(',');
           valuesArray = value.split(',');
           if(tagsArray.length + valuesArray.length < defaultTagCount + 1) {
             tagsArray = tagsArray.concat(valuesArray);
@@ -29,13 +30,20 @@ document.onreadystatechange = function() {
           localStorage.setItem('flickrTag', tagsArray.join(','));
         } else {
           localStorage.setItem('flickrTag', value);
+          tagsArray[0] = value;
         }
-
-        document.getElementById('currentTag').innerText = localStorage.getItem('flickrTag');
+        var currentTagCont = document.getElementById('currentTagCont'),
+            tagUnit, currentArray = localStorage.getItem('flickrTag').split(',');
+        currentTagCont.innerHTML = '';
+        for(var i = 0; i < currentArray.length; i++) {
+          tagUnit = document.getElementById('template').innerHTML;
+          tagUnit = tagUnit.replace('{{tag}}', currentArray[i]);
+          currentTagCont.innerHTML += tagUnit;
+        }
         localStorage.setItem('flickrRecrawl', 'true');
       }
       // Function to delete all tags
-      var deleteTags = function() {
+      function deleteTags() {
         localStorage.removeItem('flickrTag');
         document.getElementById('currentTag').innerText = defaultTag;
         localStorage.setItem('flickrRecrawl', 'true');
@@ -55,6 +63,5 @@ document.onreadystatechange = function() {
       });
 
       clearButton.addEventListener('click', deleteTags);
-      deleteButton.addEventListener('click', deleteTags);
     }
 }
