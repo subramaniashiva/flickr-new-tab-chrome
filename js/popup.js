@@ -32,14 +32,7 @@ document.onreadystatechange = function() {
           localStorage.setItem('flickrTag', value);
           tagsArray[0] = value;
         }
-        var currentTagCont = document.getElementById('currentTagCont'),
-            tagUnit, currentArray = localStorage.getItem('flickrTag').split(',');
-        currentTagCont.innerHTML = '';
-        for(var i = 0; i < currentArray.length; i++) {
-          tagUnit = document.getElementById('template').innerHTML;
-          tagUnit = tagUnit.replace('{{tag}}', currentArray[i]);
-          currentTagCont.innerHTML += tagUnit;
-        }
+        addTagsUI();
         localStorage.setItem('flickrRecrawl', 'true');
       }
       // Function to delete all tags
@@ -47,6 +40,23 @@ document.onreadystatechange = function() {
         localStorage.removeItem('flickrTag');
         document.getElementById('currentTag').innerText = defaultTag;
         localStorage.setItem('flickrRecrawl', 'true');
+      }
+
+      function addTagsUI() {
+        var currentTagCont = document.getElementById('currentTagCont'),
+            tagUnit, currentArray = localStorage.getItem('flickrTag');
+        currentTagCont.innerHTML = '';
+        if(currentArray && currentArray !== null) {
+          currentArray = localStorage.getItem('flickrTag').split(',');
+          for(var i = 0; i < currentArray.length; i++) {
+            tagUnit = document.getElementById('template').innerHTML;
+            tagUnit = tagUnit.replace('{{tag}}', currentArray[i]);
+            currentTagCont.innerHTML += tagUnit;
+          }
+        } else {
+          var defaultTagText = document.getElementById('currentTag');
+          defaultTagText.style.display = 'block';
+        }
       }
       // When submit button is clicked, set the tags
       submitButton.addEventListener('click', function() {
@@ -63,5 +73,6 @@ document.onreadystatechange = function() {
       });
 
       clearButton.addEventListener('click', deleteTags);
+      addTagsUI();
     }
 }
