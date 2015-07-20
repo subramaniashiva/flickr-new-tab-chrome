@@ -53,6 +53,6 @@ document.onreadystatechange = function() {
                     dlinkTag.setAttribute('href', defaultLinks[index - 1]);
                 }
             }
-        }, 1000);
+        }, 1200);
     }
 }

@@ -3,11 +3,6 @@ document.onreadystatechange = function() {
     if(state === 'complete') {
       var currentTag = localStorage.getItem('flickrTag'),
           defaultTag = 'No tag selected !';
-      if(currentTag && currentTag !== 'null') {
-        document.getElementById('currentTag').innerText = currentTag;
-      } else {
-        document.getElementById('currentTag').innerText = defaultTag;
-      }
       //var storedTags = 
       var submitButton = document.getElementById('submit'),
       inputTag = document.getElementById('tag'),
@@ -44,10 +39,32 @@ document.onreadystatechange = function() {
         var defaultTagText = document.getElementById('currentTag');
         defaultTagText.style.display = 'block';
       }
+      function deleteSingleTag(event) {
+        var grandParent = this.parentNode.parentNode,
+            parent = this.parentNode,
+            childNode = parent.querySelectorAll('.tagValue');
+        var tagValue = childNode[0].innerHTML;
+        grandParent.removeChild(parent);
+        var currentTags = localStorage.getItem('flickrTag');
+        if(currentTags && currentTags !== 'null') {
+          currentTags = currentTags.split(',');
+          if(currentTags.length === 1 && currentTags[0] === tagValue) {
+            localStorage.removeItem('flickrTag');
+            localStorage.setItem('flickrRecrawl', 'true');
+            var defaultTagText = document.getElementById('currentTag');
+            defaultTagText.style.display = 'block';
+          } else {
+            currentTags.splice(currentTags.indexOf(tagValue), 1);
+            localStorage.setItem('flickrTag', currentTags.join(','));
+            localStorage.setItem('flickrRecrawl', 'true');
+          }
+        }
 
+      }
       function addTagsUI() {
         var currentTagCont = document.getElementById('currentTagCont'),
             defaultTagText = document.getElementById('currentTag'),
+            allTags,
             tagUnit, currentArray = localStorage.getItem('flickrTag');
         currentTagCont.innerHTML = '';
         if(currentArray && currentArray !== null) {
@@ -57,6 +74,10 @@ document.onreadystatechange = function() {
             tagUnit = tagUnit.replace('{{tag}}', currentArray[i]);
             currentTagCont.innerHTML += tagUnit;
             defaultTagText.style.display = 'none';
+          }
+          allTags = document.querySelectorAll('.delete');
+          for(i = 0; i < allTags.length; i++) {
+            allTags[i].addEventListener('click', deleteSingleTag);
           }
         } else {
           defaultTagText.style.display = 'block';
