@@ -4,6 +4,7 @@ function processOutput(data) {
         data = JSON.parse(data);
         if (data.stat != 'fail' && data.photos.total !== "0") {
             displayedImages = 0;
+            localStorage.setItem('displayedImages', 0);
             setNextPhoto(data);
             return;
         } else {
@@ -26,11 +27,11 @@ function getImageUrl(photoObject) {
 function getNextPhotoIndex(dataObject) {
         if (displayedImages < dataObject.photos.photo.length) {
             displayedImages += 1;
-            return displayedImages;
         } else {
             displayedImages = 0;
-            return displayedImages;
         }
+        localStorage.setItem('displayedImages', displayedImages);
+        return displayedImages;
     }
 // Sets the details about next image to be crawled
 function setNextPhoto(dataObject) {
@@ -59,7 +60,14 @@ function callAjax(url, callback, params) {
     xmlhttp.send();
 }
 var apiKey = '',
-    currentTag, recrawl, prefetchImg, queryString, displayedImages = 0;
+    currentTag, recrawl, prefetchImg, queryString, 
+    displayedImages = 0;
+
+if(localStorage.getItem('displayedImages')) {
+    displayedImages = parseInt(localStorage.getItem('displayedImages'), 10);
+} else if(localStorage.getItem('flickrRecrawl') && localStorage.getItem('flickrRecrawl') === 'true'){
+    displayedImages = 0;
+}
 // This function is called from out index.html
 // It sets the next item in the localStorage and requests for that image also
 // So that it will be cached and when the next time the user opens a new tab, 
@@ -106,9 +114,6 @@ function setNextItem() {
         }
     }
 }
-//chrome.tabs.onCreated.addListener(function(tab) {
-    //setNextItem();
-//});
 
 // Start our listener
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
