@@ -42,3 +42,6 @@ html, body {
 #template, #currentTag {
   display: none;
 }
+#errorMsg {
+  display: none;
+}

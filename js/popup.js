@@ -13,20 +13,24 @@ document.onreadystatechange = function() {
       // Function to set the tags entered by the user
       function setTag(value) {
         var currentTag = localStorage.getItem('flickrTag');
-        valuesArray = value.split(',');
+        valuesArray = value.split(','),
+        errMsg = document.getElementById('errorMsg');
         if(currentTag && currentTag !== 'null') {
           tagsArray = currentTag.split(',');
           if(tagsArray.length + valuesArray.length < defaultTagCount + 1) {
             tagsArray = tagsArray.concat(valuesArray);
+            localStorage.setItem('flickrTag', tagsArray.join(','));
           } else {
-            [].unshift.apply(tagsArray, valuesArray);
-            tagsArray.length = defaultTagCount;
+            //[].unshift.apply(tagsArray, valuesArray);
+            //tagsArray.length = defaultTagCount;
+            errMsg.style.display = 'block';
+            return;
           }
-          localStorage.setItem('flickrTag', tagsArray.join(','));
         } else {
           valuesArray.length = Math.min(valuesArray.length, defaultTagCount);
           localStorage.setItem('flickrTag', valuesArray.join(','));
         }
+        errMsg.style.display = 'none';
         addTagsUI();
         localStorage.setItem('flickrRecrawl', 'true');
       }
