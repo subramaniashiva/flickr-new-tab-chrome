@@ -31,6 +31,7 @@ function getNextPhotoIndex(dataObject) {
             displayedImages = 0;
         }
         localStorage.setItem('displayedImages', displayedImages);
+        console.log('monsieur, next index is ', displayedImages);
         return displayedImages;
     }
 // Sets the details about next image to be crawled
@@ -44,6 +45,7 @@ function setNextPhoto(dataObject) {
         localStorage.setItem('nextId', nextPhoto.id);
         localStorage.setItem('flickrData', JSON.stringify(dataObject));
     } else {
+        console.log('Get me index one more time');
         setNextPhoto(dataObject);
     }
 }
@@ -68,7 +70,7 @@ if(localStorage.getItem('displayedImages')) {
 } else if(localStorage.getItem('flickrRecrawl') && localStorage.getItem('flickrRecrawl') === 'true'){
     displayedImages = 0;
 }
-// This function is called from out index.html
+// This function is called from index.html
 // It sets the next item in the localStorage and requests for that image also
 // So that it will be cached and when the next time the user opens a new tab, 
 // it will load fast
@@ -100,9 +102,7 @@ function setNextItem() {
             data = JSON.parse(data);
             if (data.photos.photo.length != displayedImages) {
                 setNextPhoto(data);
-                var nextPhotoIndex = getNextPhotoIndex(data),
-                    nextPhoto = data.photos.photo[nextPhotoIndex];
-                if (getImageUrl(nextPhoto) !== '' || getImageUrl(nextPhoto) !== undefined) {
+                if (localStorage.getItem('nextFlickrImage') && localStorage.getItem('nextFlickrImage') !== 'undefined') {
                     prefetchImg = new Image();
                     prefetchImg.src = localStorage.getItem('nextFlickrImage');
                 }
