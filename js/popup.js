@@ -12,7 +12,8 @@ document.onreadystatechange = function() {
           valuesArray;
       // Function to set the tags entered by the user
       function setTag(value) {
-        var valuesArray = value.split(',');
+        var currentTag = localStorage.getItem('flickrTag'),
+            valuesArray = value.split(',');
         if(currentTag && currentTag !== 'null') {
           tagsArray = currentTag.split(',');
           if(tagsArray.length + valuesArray.length < defaultTagCount + 1) {
@@ -45,7 +46,7 @@ document.onreadystatechange = function() {
             parent = this.parentNode,
             childNode = parent.querySelectorAll('.tagValue'),
             tagValue = childNode[0].innerHTML,
-            currentTags = localStorage.getItem('flickrTag').
+            currentTags = localStorage.getItem('flickrTag'),
             defaultTagText;
 
         grandParent.removeChild(parent);
@@ -63,20 +64,21 @@ document.onreadystatechange = function() {
         }
 
       }
+      // Function to add tags in the UI
       function addTagsUI() {
         var currentTagCont = document.getElementById('currentTagCont'),
             defaultTagText = document.getElementById('currentTag'),
-            allTags,
-            tagUnit, currentArray = localStorage.getItem('flickrTag');
+            currentArray = localStorage.getItem('flickrTag'),
+            allTags, tagUnit, i;
         currentTagCont.innerHTML = '';
         if(currentArray && currentArray !== null) {
-          currentArray = localStorage.getItem('flickrTag').split(',');
-          for(var i = 0; i < currentArray.length; i++) {
+          currentArray = currentArray.split(',');
+          for(i = 0; i < currentArray.length; i++) {
             tagUnit = document.getElementById('template').innerHTML;
             tagUnit = tagUnit.replace('{{tag}}', currentArray[i]);
             currentTagCont.innerHTML += tagUnit;
-            defaultTagText.style.display = 'none';
           }
+          defaultTagText.style.display = 'none';
           allTags = document.querySelectorAll('.delete');
           for(i = 0; i < allTags.length; i++) {
             allTags[i].addEventListener('click', deleteSingleTag);
