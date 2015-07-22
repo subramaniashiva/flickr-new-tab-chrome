@@ -3,65 +3,63 @@ document.onreadystatechange = function() {
     if(state === 'complete') {
       var currentTag = localStorage.getItem('flickrTag'),
           defaultTag = 'No tag selected !';
-      //var storedTags = 
-      var submitButton = document.getElementById('submit'),
-      inputTag = document.getElementById('tag'),
-      clearButton = document.getElementById('clear'),
-      tagsArray = [],
-      defaultTagCount = 6,
-      valuesArray;
+      var dSubmitButton = document.getElementById('submit'),
+          dInputTag = document.getElementById('tag'),
+          dClearButton = document.getElementById('clear'),
+          dErrMsg = document.getElementById('errorMsg'),
+          tagsArray = [],
+          defaultTagCount = 6,
+          valuesArray;
       // Function to set the tags entered by the user
       function setTag(value) {
-        var currentTag = localStorage.getItem('flickrTag');
-        valuesArray = value.split(','),
-        errMsg = document.getElementById('errorMsg');
+        var valuesArray = value.split(',');
         if(currentTag && currentTag !== 'null') {
           tagsArray = currentTag.split(',');
           if(tagsArray.length + valuesArray.length < defaultTagCount + 1) {
             tagsArray = tagsArray.concat(valuesArray);
             localStorage.setItem('flickrTag', tagsArray.join(','));
           } else {
-            //[].unshift.apply(tagsArray, valuesArray);
-            //tagsArray.length = defaultTagCount;
-            errMsg.style.display = 'block';
+            dErrMsg.style.display = 'block';
             return;
           }
         } else {
           valuesArray.length = Math.min(valuesArray.length, defaultTagCount);
           localStorage.setItem('flickrTag', valuesArray.join(','));
         }
-        errMsg.style.display = 'none';
+        dErrMsg.style.display = 'none';
         addTagsUI();
         localStorage.setItem('flickrRecrawl', 'true');
       }
       // Function to delete all tags
       function deleteTags() {
+        var currentTagCont = document.getElementById('currentTagCont'),
+            defaultTagText = document.getElementById('currentTag');
         localStorage.removeItem('flickrTag');
         localStorage.setItem('flickrRecrawl', 'true');
-        var currentTagCont = document.getElementById('currentTagCont');
         currentTagCont.innerHTML = '';
-        var defaultTagText = document.getElementById('currentTag');
         defaultTagText.style.display = 'block';
       }
+      // Function to delete a single tag
       function deleteSingleTag(event) {
         var grandParent = this.parentNode.parentNode,
             parent = this.parentNode,
-            childNode = parent.querySelectorAll('.tagValue');
-        var tagValue = childNode[0].innerHTML;
+            childNode = parent.querySelectorAll('.tagValue'),
+            tagValue = childNode[0].innerHTML,
+            currentTags = localStorage.getItem('flickrTag').
+            defaultTagText;
+
         grandParent.removeChild(parent);
-        var currentTags = localStorage.getItem('flickrTag');
         if(currentTags && currentTags !== 'null') {
           currentTags = currentTags.split(',');
           if(currentTags.length === 1 && currentTags[0] === tagValue) {
             localStorage.removeItem('flickrTag');
-            localStorage.setItem('flickrRecrawl', 'true');
-            var defaultTagText = document.getElementById('currentTag');
+            defaultTagText = document.getElementById('currentTag');
             defaultTagText.style.display = 'block';
           } else {
             currentTags.splice(currentTags.indexOf(tagValue), 1);
             localStorage.setItem('flickrTag', currentTags.join(','));
-            localStorage.setItem('flickrRecrawl', 'true');
           }
+          localStorage.setItem('flickrRecrawl', 'true');
         }
 
       }
@@ -88,20 +86,21 @@ document.onreadystatechange = function() {
         }
       }
       // When submit button is clicked, set the tags
-      submitButton.addEventListener('click', function() {
-        if(inputTag.value) {
-          setTag(inputTag.value);
+      dSubmitButton.addEventListener('click', function() {
+        if(dInputTag.value) {
+          setTag(dInputTag.value);
+          dInputTag.value = '';
         }
       });
       // When enter is pressed in the text box, set the tags with value
-      inputTag.addEventListener('keypress', function(event) {
-        if(event.keyCode === 13 && inputTag.value) {
-          setTag(inputTag.value);
-          inputTag.value = '';
+      dInputTag.addEventListener('keypress', function(event) {
+        if(event.keyCode === 13 && dInputTag.value) {
+          setTag(dInputTag.value);
+          dInputTag.value = '';
         }
       });
 
-      clearButton.addEventListener('click', deleteTags);
+      dClearButton.addEventListener('click', deleteTags);
       addTagsUI();
     }
 }
