@@ -14,6 +14,7 @@ document.onreadystatechange = function() {
       function setTag(value) {
         var currentTag = localStorage.getItem('flickrTag'),
             valuesArray = value.split(',');
+        valuesArray = valuesArray.map(cleanInput);
         if(currentTag && currentTag !== 'null') {
           tagsArray = currentTag.split(',');
           if(tagsArray.length + valuesArray.length < defaultTagCount + 1) {
@@ -30,6 +31,10 @@ document.onreadystatechange = function() {
         dErrMsg.style.display = 'none';
         addTagsUI();
         localStorage.setItem('flickrRecrawl', 'true');
+      }
+      // Function to remove white spaces in the input
+      function cleanInput(element) {
+        return element.trim();
       }
       // Function to delete all tags
       function deleteTags() {
