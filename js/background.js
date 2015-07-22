@@ -31,21 +31,22 @@ function getNextPhotoIndex(dataObject) {
             displayedImages = 0;
         }
         localStorage.setItem('displayedImages', displayedImages);
-        console.log('monsieur, next index is ', displayedImages);
         return displayedImages;
     }
 // Sets the details about next image to be crawled
 function setNextPhoto(dataObject) {
     var nextPhotoIndex = getNextPhotoIndex(dataObject),
         nextPhoto = dataObject.photos.photo[nextPhotoIndex];
-    console.log('next photo is ', getImageUrl(nextPhoto));
-    if (getImageUrl(nextPhoto) !== undefined && getImageUrl(nextPhoto) !== '' && getImageUrl(nextPhoto) !== 'undefined') {
-        localStorage.setItem('nextFlickrImage', getImageUrl(nextPhoto));
-        localStorage.setItem('nextOwner', nextPhoto.owner);
-        localStorage.setItem('nextId', nextPhoto.id);
-        localStorage.setItem('flickrData', JSON.stringify(dataObject));
+    if(nextPhoto.height_l && nextPhoto.width_l && parseInt(nextPhoto.height_l) < parseInt(nextPhoto.width_l)) {
+        if (getImageUrl(nextPhoto) !== undefined && getImageUrl(nextPhoto) !== '' && getImageUrl(nextPhoto) !== 'undefined') {
+            localStorage.setItem('nextFlickrImage', getImageUrl(nextPhoto));
+            localStorage.setItem('nextOwner', nextPhoto.owner);
+            localStorage.setItem('nextId', nextPhoto.id);
+            localStorage.setItem('flickrData', JSON.stringify(dataObject));
+        } else {
+            setNextPhoto(dataObject);
+        }
     } else {
-        console.log('Get me index one more time');
         setNextPhoto(dataObject);
     }
 }
