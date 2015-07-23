@@ -1,6 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
+  background: rgb(33, 33, 36);
 }
 .clearboth {
   clear: both;
@@ -35,8 +36,10 @@ html, body {
   visibility: visible;
 }
 .cover {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100vh;
+  display: block;
+  margin: 0 auto;
   visibility: hidden;
 }
 #template, #currentTag {
