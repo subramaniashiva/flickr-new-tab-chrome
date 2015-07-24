@@ -5,6 +5,8 @@ function processOutput(data) {
         if (data.stat != 'fail' && data.photos.total !== "0") {
             displayedImages = 0;
             localStorage.setItem('displayedImages', 0);
+            //localStorage.setItem('currentPage', 1);
+            localStorage.setItem('totalPages', data.photos.pages);
             setNextPhoto(data);
             return;
         } else {
@@ -29,6 +31,19 @@ function getNextPhotoIndex(dataObject) {
             displayedImages += 1;
         } else {
             displayedImages = 0;
+            var currentPage = localStorage.getItem('currentPage');
+            if(currentPage && currentPage !== '') {
+                currentPage = parseInt(currentPage, 10);
+                if(currentPage < dataObject.photos.pages) {
+                    currentPage++;
+                } else {
+                    currentPage = 1;
+                }
+                localStorage.setItem('currentPage', currentPage);
+                localStorage.setItem('flickrRecrawl', 'true');
+            } else {
+                localStorage.setItem('currentPage', 1);
+            } 
         }
         localStorage.setItem('displayedImages', displayedImages);
         return displayedImages;
@@ -37,7 +52,7 @@ function getNextPhotoIndex(dataObject) {
 function setNextPhoto(dataObject) {
     var nextPhotoIndex = getNextPhotoIndex(dataObject),
         nextPhoto = dataObject.photos.photo[nextPhotoIndex];
-    if(nextPhoto.height_l && nextPhoto.width_l && parseInt(nextPhoto.height_l) < parseInt(nextPhoto.width_l)) {
+    if(nextPhoto && nextPhoto.height_l && nextPhoto.width_l && parseInt(nextPhoto.height_l) < parseInt(nextPhoto.width_l)) {
         if (getImageUrl(nextPhoto) !== undefined && getImageUrl(nextPhoto) !== '' && getImageUrl(nextPhoto) !== 'undefined') {
             localStorage.setItem('nextFlickrImage', getImageUrl(nextPhoto));
             localStorage.setItem('nextOwner', nextPhoto.owner);
@@ -76,14 +91,23 @@ if(localStorage.getItem('displayedImages')) {
 // So that it will be cached and when the next time the user opens a new tab, 
 // it will load fast
 function setNextItem() {
-    console.log('Next item called');
-    var recrawl, data, ajaxRequested = false;
+    var recrawl, data, ajaxRequested = false,
+        pageNumber = localStorage.getItem('currentPage'),
+        totalPages = localStorage.getItem('totalPages');
     currentTag = localStorage.getItem('flickrTag');
+    if(pageNumber && pageNumber !== '') {
+        pageNumber = parseInt(pageNumber, 10);
+        if(totalPages && totalPages !== '' && pageNumber > totalPages) {
+            pageNumber = 1;
+        }
+    } else {
+        pageNumber = 1;
+    }
     // If there is no tag, set the query to crawl latest images from Flickr
     if (currentTag && currentTag !== 'null') {
-        queryString = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&tags=' + currentTag + '&format=json&nojsoncallback=1&safe_search=1&content_type=1&sort=interestingness-desc&extras=url_l&per_page=300';
+        queryString = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&tags=' + currentTag + '&format=json&nojsoncallback=1&safe_search=1&content_type=1&sort=interestingness-desc&extras=url_l&per_page=5&page='+pageNumber;
     } else {
-        queryString = 'https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=' + apiKey + '&format=json&nojsoncallback=1&safe_search=1&content_type=1&sort=interestingness-desc&extras=url_l&per_page=300';
+        queryString = 'https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=' + apiKey + '&format=json&nojsoncallback=1&safe_search=1&content_type=1&sort=interestingness-desc&extras=url_l&per_page=5&page='+pageNumber;
     }
 
     recrawl = localStorage.getItem('flickrRecrawl');
