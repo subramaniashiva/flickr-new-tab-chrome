@@ -31,6 +31,7 @@ document.onreadystatechange = function() {
         dErrMsg.style.display = 'none';
         addTagsUI();
         localStorage.setItem('flickrRecrawl', 'true');
+        localStorage.setItem('tagChanged', 'true');
       }
       // Function to remove white spaces in the input
       function cleanInput(element) {
@@ -42,6 +43,7 @@ document.onreadystatechange = function() {
             defaultTagText = document.getElementById('currentTag');
         localStorage.removeItem('flickrTag');
         localStorage.setItem('flickrRecrawl', 'true');
+        localStorage.setItem('tagChanged', 'true');
         currentTagCont.innerHTML = '';
         defaultTagText.style.display = 'block';
       }
@@ -66,6 +68,7 @@ document.onreadystatechange = function() {
             localStorage.setItem('flickrTag', currentTags.join(','));
           }
           localStorage.setItem('flickrRecrawl', 'true');
+          localStorage.setItem('tagChanged', 'true');
         }
 
       }
