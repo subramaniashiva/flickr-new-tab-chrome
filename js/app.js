@@ -19,12 +19,17 @@ document.onreadystatechange = function() {
             'https://www.flickr.com/photos/104818937@N06/16986756492/'
         ];
     if (state === 'complete') {
-        if (localStorage.getItem('nextFlickrImage') !== null && localStorage.getItem('nextFlickrImage') !== 'undefined') {
+        if (localStorage.getItem('nextFlickrImage') !== null &&
+            localStorage.getItem('nextFlickrImage') !== 'undefined') {
+
             dimgTag.onload = function() {
                 imgLoaded = true;
                 dimgTag.style.visibility = 'visible';
                 if (dlinkTag && !defaultLinkSet) {
-                    dlinkTag.setAttribute('href', 'http://flickr.com/photos/' + localStorage.getItem('nextOwner') + '/' + localStorage.getItem('nextId'));
+                    dlinkTag.setAttribute('href', 'http://flickr.com/photos/' + 
+                        localStorage.getItem('nextOwner') + '/' + 
+                        localStorage.getItem('nextId'));
+                    
                     chrome.extension.sendRequest({
                         method: 'setNextItem'
                     }, function(response) {

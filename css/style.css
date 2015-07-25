@@ -35,16 +35,16 @@ html, body {
 .singleTag:hover .delete{
   visibility: visible;
 }
+#template, #currentTag {
+  display: none;
+}
+#errorMsg {
+  display: none;
+}
 .cover {
   width: auto;
   height: 100vh;
   display: block;
   margin: 0 auto;
   visibility: hidden;
-}
-#template, #currentTag {
-  display: none;
-}
-#errorMsg {
-  display: none;
 }

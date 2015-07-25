@@ -62,7 +62,8 @@ function setQueryString() {
 
     // If there is no tag, set the query to crawl latest images from Flickr
     if (currentTag && currentTag !== 'null') {
-        queryString = partialQueryTag + '&tags=' + currentTag + '&page=' + pageNumber;
+        queryString = partialQueryTag + '&tags=' + currentTag +
+        '&page=' + pageNumber;
     } else {
         queryString = partialQueryGeneral + '&page=' + pageNumber;
     }
