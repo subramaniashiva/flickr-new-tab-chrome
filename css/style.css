@@ -8,25 +8,20 @@ html, body {
 }
 .popup {
   width: 280px;
-  height: 180px;
+  min-height: 180px;
+  height: auto;
   background: #eeeeee;
   padding: 10px;
   color: #222222;
   font-family: 'Open Sans', sans-serif;
 }
 .title {
-  margin-bottom: 10px;
+  margin: 7px 0;
   font-family: 'Roboto', sans-serif;
-}
-.delete {
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  cursor: pointer;
-  visibility: hidden;
 }
 .tagCont {
   position: relative;
+  margin-bottom: 5px;
 }
 .tagInput {
   display: block;
@@ -59,23 +54,41 @@ html, body {
   text-decoration: none;
 }
 .singleTag {
-  padding: 10px 15px 10px 5px;
+  padding: 7px 12px 7px 12px;
+  background: #6C9FD4;
+  color: #fff;
   width: auto;
   float: left;
   position: relative;
   margin-left: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+}
+.tagValue {
+  text-align: center;
 }
 .singleTag:hover {
   background: #cccccc;
+  color: #333;
 }
 .singleTag:hover .delete{
   visibility: visible;
+}
+.delete {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  cursor: pointer;
+  visibility: hidden;
 }
 #template, #currentTag {
   display: none;
 }
 #errorMsg {
   display: none;
+}
+.errorMsg {
+  color: #FF0084;
 }
 .cover {
   width: auto;
