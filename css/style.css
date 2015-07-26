@@ -6,11 +6,12 @@ html, body {
 .clearboth {
   clear: both;
 }
-#popup {
+.popup {
   width: 280px;
   height: 180px;
   background: #eeeeee;
   padding: 10px;
+  color: #222222;
 }
 .title {
   margin-bottom: 0;
@@ -21,6 +22,36 @@ html, body {
   top: 5px;
   cursor: pointer;
   visibility: hidden;
+}
+.tagInput {
+  display: block;
+  width: 96%;
+  padding: 2%;
+  background: #F5F8F9;
+  border: 2px solid #DCE4E6;
+  border-radius: 2px;
+  color: #111111;
+  box-sizing: border-box;
+}
+.btn {
+  background: #1e75ce;
+  background-image: -webkit-linear-gradient(top, #1e75ce, #085db7);
+  background-image: linear-gradient(to bottom, #1e75ce, #085db7);
+  border: none;
+  border-radius: 2px;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 5px 10px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 10px 10px 0 0;
+}
+
+.btn:hover {
+  background: #085db7;
+  background-image: -webkit-linear-gradient(top, #085db7, #1e75ce);
+  background-image: linear-gradient(to bottom, #085db7, #1e75ce);
+  text-decoration: none;
 }
 .singleTag {
   padding: 10px 15px 10px 5px;
