@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Flickr Photo Stream</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans|Roboto:700' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet" />
   </head>
   <body id="popup" class="popup">
@@ -10,8 +11,10 @@
       
     </div>
     <span id="currentTag">No tag selected !</span>
-    <h3 class="clearboth">Select your tag for flickr stream</h3>
-    <input id="tag" class="tagInput" type="text" placeholder="Nature, people, space..etc" />
+    <h3 class="clearboth title">Select your tag for flickr stream</h3>
+    <div class="tagCont">
+      <input id="tag" class="tagInput" type="text" placeholder="Nature, people, space..etc" />
+    </div>
     <span id="errorMsg">Only 6 tags are supported. Please delete any of the tags to continue</span>
     <button id="submit" class="btn">Submit</button>
     <button id="clear" class="btn">Delete all tags</button>

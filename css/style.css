@@ -12,9 +12,11 @@ html, body {
   background: #eeeeee;
   padding: 10px;
   color: #222222;
+  font-family: 'Open Sans', sans-serif;
 }
 .title {
-  margin-bottom: 0;
+  margin-bottom: 10px;
+  font-family: 'Roboto', sans-serif;
 }
 .delete {
   position: absolute;
@@ -22,6 +24,9 @@ html, body {
   top: 5px;
   cursor: pointer;
   visibility: hidden;
+}
+.tagCont {
+  position: relative;
 }
 .tagInput {
   display: block;
