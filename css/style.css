@@ -8,16 +8,23 @@ html, body {
 }
 .popup {
   width: 280px;
-  min-height: 180px;
+  min-height: 200px;
   height: auto;
   background: #eeeeee;
   padding: 10px;
   color: #222222;
   font-family: 'Open Sans', sans-serif;
 }
+.container {
+  clear: both;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}
 .title {
   margin: 7px 0;
   font-family: 'Roboto', sans-serif;
+  clear: both;
 }
 .tagCont {
   position: relative;
