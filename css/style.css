@@ -8,7 +8,7 @@ html, body {
 }
 .popup {
   width: 280px;
-  min-height: 200px;
+  min-height: 190px;
   height: auto;
   background: #eeeeee;
   padding: 10px;
@@ -18,8 +18,7 @@ html, body {
 .container {
   clear: both;
   height: auto;
-  display: block;
-  margin: 10px auto;
+  margin: 10px auto 15px auto;
 }
 .title {
   margin: 7px 0;
@@ -65,7 +64,7 @@ html, body {
   background: #6C9FD4;
   color: #fff;
   width: auto;
-  float: left;
+  display: inline-block;
   position: relative;
   margin-left: 5px;
   margin-bottom: 5px;
