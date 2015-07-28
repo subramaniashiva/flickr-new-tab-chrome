@@ -17,7 +17,8 @@ document.onreadystatechange = function() {
             valuesArray = valuesArray.map(cleanInput);
             if (currentTag && currentTag !== 'null') {
                 tagsArray = currentTag.split(',');
-                if (tagsArray.length + valuesArray.length < defaultTagCount + 1) {
+                if (tagsArray.length + valuesArray.length < 
+                    defaultTagCount + 1) {
                     tagsArray = tagsArray.concat(valuesArray);
                     localStorage.setItem('flickrTag', tagsArray.join(','));
                 } else {
@@ -25,7 +26,8 @@ document.onreadystatechange = function() {
                     return;
                 }
             } else {
-                valuesArray.length = Math.min(valuesArray.length, defaultTagCount);
+                valuesArray.length = Math.min(valuesArray.length, 
+                    defaultTagCount);
                 localStorage.setItem('flickrTag', valuesArray.join(','));
             }
             dErrMsg.style.display = 'none';

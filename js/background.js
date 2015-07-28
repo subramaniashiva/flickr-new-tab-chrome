@@ -54,7 +54,8 @@
         } else {
             if (pageNumber && pageNumber !== '') {
                 pageNumber = parseInt(pageNumber, 10);
-                if (totalPages && totalPages !== '' && pageNumber > totalPages) {
+                if (totalPages && totalPages !== '' && pageNumber > totalPages) 
+                {
                     pageNumber = 1;
                 }
             } else {
@@ -165,7 +166,8 @@
                     nextImageUrl = localStorage.getItem('nextFlickrImage');
                     if (nextImageUrl && nextImageUrl !== 'undefined') {
                         prefetchImg = new Image();
-                        prefetchImg.src = localStorage.getItem('nextFlickrImage');
+                        prefetchImg.src = 
+                        localStorage.getItem('nextFlickrImage');
                     }
                 } else {
                     recrawlFlickrData();
@@ -177,7 +179,8 @@
     }
 
     // Start our listener
-    chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    chrome.extension.onRequest.addListener(function(request, sender, 
+        sendResponse) {
         if (request.method === 'setNextItem') {
             setNextItem();
         }

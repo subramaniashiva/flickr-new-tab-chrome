@@ -1,16 +1,16 @@
-// Function to generate random number.
-// Used for loading default images
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 document.onreadystatechange = function() {
+    // Function to generate random number.
+    // Used for loading default images
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
     var state = document.readyState;
     var dimgTag = document.getElementById('flickrPhoto'),
         dlinkTag = document.getElementById('flickrLink'),
         defaultLinkSet = false,
         index = getRandomInt(1, 7),
         imgLoaded = false,
-        defaultLinks = ['https://www.flickr.com/photos/premnath/7709816036/',
+        DEFAULT_LINKS = ['https://www.flickr.com/photos/premnath/7709816036/',
             'https://www.flickr.com/photos/104818937@N06/18607432546/',
             'https://www.flickr.com/photos/premnath/10073243713/',
             'https://www.flickr.com/photos/premnath/15125443389/',
@@ -29,7 +29,7 @@ document.onreadystatechange = function() {
                     dlinkTag.setAttribute('href', 'http://flickr.com/photos/' + 
                         localStorage.getItem('nextOwner') + '/' + 
                         localStorage.getItem('nextId'));
-                    
+
                     chrome.extension.sendRequest({
                         method: 'setNextItem'
                     }, function(response) {
@@ -55,9 +55,9 @@ document.onreadystatechange = function() {
                 dimgTag.style.visibility = 'visible';
                 if (dlinkTag) {
                     defaultLinkSet = true;
-                    dlinkTag.setAttribute('href', defaultLinks[index - 1]);
+                    dlinkTag.setAttribute('href', DEFAULT_LINKS[index - 1]);
                 }
             }
-        }, 1200);
+        }, 1500);
     }
 }
