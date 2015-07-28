@@ -7,6 +7,8 @@ document.onreadystatechange = function() {
             dInputTag = document.getElementById('tag'),
             dClearButton = document.getElementById('clear'),
             dErrMsg = document.getElementById('errorMsg'),
+            dInfoIcon = document.getElementById('infoIcon'),
+            dHelperDiv = document.getElementById('helper'),
             tagsArray = [],
             defaultTagCount = 6,
             valuesArray;
@@ -96,6 +98,12 @@ document.onreadystatechange = function() {
                 defaultTagText.style.display = 'block';
             }
         }
+        function showHelper() {
+            dHelperDiv.style.display = 'block';
+        }
+        function hideHelper() {
+            dHelperDiv.style.display = 'none';
+        }
         // When submit button is clicked, set the tags
         dSubmitButton.addEventListener('click', function() {
             if (dInputTag.value) {
@@ -112,6 +120,8 @@ document.onreadystatechange = function() {
         });
 
         dClearButton.addEventListener('click', deleteTags);
+        dInfoIcon.addEventListener('mouseover', showHelper);
+        dInfoIcon.addEventListener('mouseout', hideHelper);
         addTagsUI();
     }
 }
