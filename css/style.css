@@ -10,13 +10,13 @@ body {
 }
 
 .popup {
-    width: 280px;
-    min-height: 190px;
-    height: auto;
-    background: #eeeeee;
-    padding: 10px;
-    color: #222222;
-    font-family: 'Open Sans', sans-serif;
+  width: 300px;
+  min-height: 190px;
+  height: auto;
+  background: #eeeeee;
+  padding: 10px;
+  color: #222222;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .container {
@@ -26,159 +26,155 @@ body {
 }
 
 .title {
-    margin: 7px 0;
-    font-family: 'Roboto', sans-serif;
-    clear: both;
+  margin: 7px 0;
+  font-family: 'Roboto', sans-serif;
+  clear: both;
 }
 
 .tagCont {
-    position: relative;
-    margin-bottom: 5px;
+  position: relative;
+  margin-bottom: 5px;
 }
 
 .tagInput {
-    display: block;
-    width: 96%;
-    padding: 2%;
-    background: #F5F8F9;
-    border: 2px solid #DCE4E6;
-    border-radius: 2px;
-    color: #111111;
-    box-sizing: border-box;
+  display: block;
+  width: 96%;
+  padding: 2%;
+  background: #F5F8F9;
+  border: 2px solid #DCE4E6;
+  border-radius: 2px;
+  color: #111111;
+  box-sizing: border-box;
 }
 
 .btn {
-    background: #1e75ce;
-    background-image: -webkit-linear-gradient(top, #1e75ce, #085db7);
-    background-image: linear-gradient(to bottom, #1e75ce, #085db7);
-    border: none;
-    border-radius: 2px;
-    color: #ffffff;
-    font-size: 12px;
-    padding: 5px 10px;
-    text-decoration: none;
-    cursor: pointer;
-    margin: 10px 10px 0 0;
+  background: #1e75ce;
+  background-image: -webkit-linear-gradient(top, #1e75ce, #085db7);
+  background-image: linear-gradient(to bottom, #1e75ce, #085db7);
+  border: none;
+  border-radius: 2px;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 5px 10px;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 10px 10px 0 0;
 }
 
 .btn:hover {
-    background: #085db7;
-    background-image: -webkit-linear-gradient(top, #085db7, #1e75ce);
-    background-image: linear-gradient(to bottom, #085db7, #1e75ce);
-    text-decoration: none;
+  background: #085db7;
+  background-image: -webkit-linear-gradient(top, #085db7, #1e75ce);
+  background-image: linear-gradient(to bottom, #085db7, #1e75ce);
+  text-decoration: none;
 }
 
 .singleTag {
-    padding: 7px 12px 7px 12px;
-    background: #6C9FD4;
-    color: #fff;
-    width: auto;
-    display: inline-block;
-    position: relative;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    border-radius: 3px;
+  padding: 7px 12px 7px 12px;
+  background: #6C9FD4;
+  color: #fff;
+  width: auto;
+  display: inline-block;
+  position: relative;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
 }
 
 .tagValue {
-    text-align: center;
+  text-align: center;
 }
 
 .singleTag:hover {
-    background: #bcc8d6;
-    color: #333;
+  background: #bcc8d6;
+  color: #333;
 }
 
 .singleTag:hover .delete {
-    visibility: visible;
+  visibility: visible;
 }
 
 .delete {
-    position: absolute;
-    right: 3px;
-    top: 2px;
-    cursor: pointer;
-    visibility: hidden;
+  position: absolute;
+  right: 3px;
+  top: 2px;
+  cursor: pointer;
+  visibility: hidden;
 }
 
 #template,
-#currentTag {
-    display: none;
-}
-
+#currentTag,
 #errorMsg {
-    display: none;
+  display: none;
 }
 
 .errorMsg {
-    color: #FF0084;
+  color: #FF0084;
 }
 
 .cover {
-    width: auto;
-    height: 100vh;
-    display: block;
-    margin: 0 auto;
-    visibility: hidden;
-}
-
-.icon,
-.icon::before,
-.icon::after {
-    position: relative;
-    padding: 0;
-    margin: 0;
+  width: auto;
+  height: 100vh;
+  display: block;
+  margin: 0 auto;
+  visibility: hidden;
 }
 .iconHolder {
   position: absolute;
   top: 6px;
   right: 15px;
 }
+.icon,
+.icon::before,
+.icon::after {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
 .icon {
-    font-size: 18px;
-    color: transparent;
-    cursor: pointer;
+  font-size: 18px;
+  color: transparent;
+  cursor: pointer;
 }
 .icon.info {
-    display: inline-block;
-    top: 0;
-    width: 14px;
-    height: 14px;
-    overflow: hidden;
-    border: none;
-    border-radius: 0.5em;
-    box-shadow: #999 0 1px 1px;
+  display: inline-block;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  overflow: hidden;
+  border: none;
+  border-radius: 0.5em;
+  box-shadow: #999 0 1px 1px;
 }
 
 .icon.info::after {
-    display: block;
-    position: absolute;
-    top: 0.25em;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-family: "Times New Roman", "Garamond", serif;
-    font-size: 0.65em;
-    color: white;
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: "Times New Roman", "Garamond", serif;
+  font-size: 12px;
+  color: white;
 }
 
 .icon.info {
-    background-color: #1e75ce;
+  background-color: #1e75ce;
 }
 
 .icon.info::after {
-    font-style: italic;
-    font-weight: bold;
-    content: "i";
+  font-style: italic;
+  font-weight: bold;
+  content: "i";
 }
-#helper {
+.helper {
   display: none;
   background: #fff;
-  width: 230px;
-  border: 1px solid #eee;
+  width: 250px;
+  border: 1px solid #aaa;
   border-radius: 2px;
   position: absolute;
   right: 30px;
-  top: -120px;
+  top: -110px;
   padding: 0 10px;
 }
