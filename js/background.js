@@ -32,11 +32,7 @@
                 localStorage.setItem('flickrRecrawl', 'false');
                 setNextPhoto(data);
                 return;
-            } else {
-                console.log('No data. Fall back to default');
             }
-        } else {
-            console.log('Crawl error from Flickr');
         }
         // Since we have not received any data from Flickr,
         // set flickrRecrawl to true
@@ -148,7 +144,6 @@
 
         recrawl = localStorage.getItem('flickrRecrawl');
         if (recrawl === null || recrawl === 'true') {
-            console.log('recrawl happening');
             recrawlFlickrData();
             ajaxRequested = true;
         } else if (localStorage.getItem('nextFlickrImage') === null ||
