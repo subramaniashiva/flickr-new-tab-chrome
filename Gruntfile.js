@@ -3,6 +3,11 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        jshint: {
+          files: {
+            src: 'js/*.js'
+          }
+        },
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -48,6 +53,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-html-minify');
 
     // Default task(s).
-    grunt.registerTask('default', ['html_minify', 'uglify', 'cssmin']);
+    grunt.registerTask('default', ['jshint','html_minify', 'uglify', 'cssmin']);
 
 };

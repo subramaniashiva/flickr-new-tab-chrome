@@ -36,10 +36,10 @@ document.onreadystatechange = function() {
                         console.log('called succesfully');
                     });
                 }
-            }
+            };
             dimgTag.onerror = function(e) {
                 console.log('error', e);
-            }
+            };
             dimgTag.setAttribute('src', localStorage.getItem('nextFlickrImage'));
         } else {
             chrome.extension.sendRequest({
@@ -60,4 +60,4 @@ document.onreadystatechange = function() {
             }
         }, 1500);
     }
-}
+};
