@@ -1,1 +1,42 @@
-<!DOCTYPE HTML><html><head><title>Flickr Photo Stream</title><link href="http://fonts.googleapis.com/css?family=Open+Sans|Roboto:700" rel="stylesheet" type="text/css"/><link href="css/style.css" rel="stylesheet"/></head><body id="popup" class="popup"><div class="container"><h2 class="title">Currently Selected Tags</h2><hr/><div id="currentTagCont"></div><span id="currentTag">No tag selected :(</span></div><div class="container"><h3 class="clearboth title">Add your tags to show from flickr stream</h3><div class="tagCont"><input id="tag" class="tagInput" type="text" placeholder="One or more tags like nature, people, space,etc"/><div class="iconHolder"><span id="infoIcon" class="icon info"></span></div><div id="helper" class="helper"><p>Tags decide the kind of images that you see when you open a new tab.</p><p>For example, if the tag is 'nature', only photos that are tagged as 'nature' in flickr will be displayed.</p><p>You can give multiple tags comma separated in the text box. Ex: <b>Nature,Space,India</b>. Give multiple tags for better results.</p></div></div><span id="errorMsg" class="errorMsg">Only 6 tags are supported. Please delete any of the tags to continue.</span> <button id="submit" class="btn">Submit</button> <button id="clear" class="btn">Delete all tags</button></div><script src="js/popup.js"></script><div id="template"><div class="singleTag"><span class="tagValue">{{tag}}</span> <span class="delete">&#10006;</span></div></div></body></html>
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Flickr Photo Stream</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans|Roboto:700' rel='stylesheet' type='text/css'>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body id="popup" class="popup">
+    <div class="container">
+      <h2 class="title">Currently Selected Tags</h2>
+      <hr />
+      <div id="currentTagCont">
+      </div>
+      <span id="currentTag">No tag selected :(</span>
+    </div>
+    <div class="container">
+        <h3 class="clearboth title">Add your tags to show from flickr stream</h3>
+        <div class="tagCont">
+            <input id="tag" class="tagInput" type="text" placeholder="One or more tags like nature, people, space,etc" />
+            <div class="iconHolder"><span id="infoIcon" class="icon info"></span></div>
+            <div id="helper" class="helper">
+              <p>Tags decide the kind of images that you see when you open a new tab.</p>
+              <p>For example, if the tag is 'nature', only photos that are tagged as 'nature' in flickr will be displayed.</p>
+              <p>You can give multiple tags comma separated in the text box. Ex: <b>Nature,Space,India</b>. Give multiple tags for better results.</p>
+            </div>
+        </div>
+        <span id="errorMsg" class="errorMsg">Only 6 tags are supported. Please delete any of the tags to continue.</span>
+        <button id="submit" class="btn">Submit</button>
+        <button id="clear" class="btn">Delete all tags</button>
+    </div>
+    <script src="js/popup.js"></script>
+    <div id="template">
+        <div class='singleTag'>
+            <span class='tagValue'>{{tag}}</span>
+            <span class='delete'>&#10006;</span>
+        </div>
+    </div>
+</body>
+
+</html>

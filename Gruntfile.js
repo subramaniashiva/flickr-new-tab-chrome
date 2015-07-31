@@ -3,6 +3,15 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        copy: {
+          main: {
+              files: [{
+                  expand: true,
+                  src: ['index.html', 'manifest.json', 'popup.html', 'img/*', 'icons/*'],
+                  dest: 'build/'
+              }]
+          }
+        },
         jshint: {
           files: {
             src: 'js/*.js'
@@ -16,7 +25,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     src: '*.js',
-                    dest: 'build/scripts',
+                    dest: 'build/js',
                     cwd: 'js'
                 }]
             }
@@ -28,7 +37,7 @@ module.exports = function(grunt) {
                     cwd: 'css',
                     src: ['*.css', '!*.min.css'],
                     dest: 'build/css',
-                    ext: '.min.css'
+                    ext: '.css'
                 }]
             }
         },
@@ -52,7 +61,9 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-html-minify');
 
+    grunt.loadNpmTasks('grunt-contrib-copy');
+
     // Default task(s).
-    grunt.registerTask('default', ['jshint','html_minify', 'uglify', 'cssmin']);
+    grunt.registerTask('default', ['jshint','html_minify', 'uglify', 'cssmin', 'copy']);
 
 };

@@ -18,18 +18,18 @@ document.onreadystatechange = function() {
             'https://www.flickr.com/photos/premnath/8693469848/',
             'https://www.flickr.com/photos/104818937@N06/16986756492/'
         ];
-    // Load default image, since the image from flickr is taking long time
-    var timeOut = setTimeout(function() {
-        if (!imgLoaded) {
-            dimgTag.setAttribute('src', 'img/default_' + index + '.jpg');
-            dimgTag.style.visibility = 'visible';
-            if (dlinkTag) {
-                defaultLinkSet = true;
-                dlinkTag.setAttribute('href', DEFAULT_LINKS[index - 1]);
-            }
-        }
-    }, 1500);
     if (state === 'complete') {
+        // Load default image, since the image from flickr is taking long time
+        var timeOut = setTimeout(function() {
+            if (!imgLoaded) {
+                dimgTag.setAttribute('src', 'img/default_' + index + '.jpg');
+                dimgTag.style.visibility = 'visible';
+                if (dlinkTag) {
+                    defaultLinkSet = true;
+                    dlinkTag.setAttribute('href', DEFAULT_LINKS[index - 1]);
+                }
+            }
+        }, 1500);
         if (localStorage.getItem('nextFlickrImage') !== null &&
             localStorage.getItem('nextFlickrImage') !== 'undefined') {
 
@@ -48,13 +48,6 @@ document.onreadystatechange = function() {
             };
             // On error clear the time out function and load the default image
             dimgTag.onerror = function(e) {
-                clearTimeout(timeOut);
-                dimgTag.setAttribute('src', 'img/default_' + index + '.jpg');
-                dimgTag.style.visibility = 'visible';
-                if (dlinkTag) {
-                    defaultLinkSet = true;
-                    dlinkTag.setAttribute('href', DEFAULT_LINKS[index - 1]);
-                }
                 chrome.extension.sendRequest({
                     method: 'setNextItem'
                 }, function(response) {});
