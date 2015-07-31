@@ -1,6 +1,8 @@
 {
   "name": "Flickr New Tab",
-  "description": "Load the new tab page with a photo from Flickr Stream",
+  "short_name": "Flickr Tab",
+  "description": "Load the new tab page with a photo from Flickr Stream. You can choose the type of photos that you want to see.",
+  "homepage_url": "https://github.com/subramaniashiva/flickr-new-tab-chrome",
   "version": "1.0",
   "incognito": "split",
   "browser_action": {
@@ -13,7 +15,7 @@
   },
   "background": {
     "scripts": ["js/background.js"],
-    "persistent": true
+    "persistent": false
   },
   "permissions": ["tabs"],
   "icons": {

@@ -10,7 +10,7 @@ document.onreadystatechange = function() {
         defaultLinkSet = false,
         index = getRandomInt(1, 7),
         imgLoaded = false,
-        DEFAULT_LINKS = ['https://www.flickr.com/photos/premnath/7709816036/',
+        DEFAULT_LINKS = ['https://www.flickr.com/photos/premnath/15190376978/',
             'https://www.flickr.com/photos/104818937@N06/18607432546/',
             'https://www.flickr.com/photos/premnath/10073243713/',
             'https://www.flickr.com/photos/premnath/15125443389/',
@@ -41,20 +41,20 @@ document.onreadystatechange = function() {
                         localStorage.getItem('nextOwner') + '/' +
                         localStorage.getItem('nextId'));
 
-                    chrome.extension.sendRequest({
+                    chrome.extension.sendMessage({
                         method: 'setNextItem'
                     }, function(response) {});
                 }
             };
             // On error clear the time out function and load the default image
             dimgTag.onerror = function(e) {
-                chrome.extension.sendRequest({
+                chrome.extension.sendMessage({
                     method: 'setNextItem'
                 }, function(response) {});
             };
             dimgTag.setAttribute('src', localStorage.getItem('nextFlickrImage'));
         } else {
-            chrome.extension.sendRequest({
+            chrome.extension.sendMessage({
                 method: 'setNextItem'
             }, function(response) {});
         }
