@@ -13,7 +13,12 @@ I feel this extension is faster than other similiar plugins because of two reaso
 
 I will write a detailed blog post about this plugin. I did this as my free time project. So if you want to fix bug/add new feature please open an issue and send me a pull request.
 
-Special thanks to the following friends:
+###Future improvements###
+* Ability to go back to chrome default new tab page
+* Display the image occupying the entire viewport. Currently it displays the image centered in viewport. A logic for selecting images that fit into user's viewport should be written. Should include the varying screen sizes for the same users (for ex: connecting to the desktop monitor)
+* When the user returns back to the tags used already, it should not show the images already shown
+
+###Special thanks to the following friends:###
 * [Vikas Lalwani](https://github.com/lalwanivikas) for giving this idea and patiently testing this extension
 * [Premnath](https://www.flickr.com/photos/premnath/) for providing default photos for this extension
 * [Raghunath](https://www.flickr.com/photos/104818937@N06) for providing default photos for this extension
