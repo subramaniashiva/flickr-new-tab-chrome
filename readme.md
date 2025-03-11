@@ -1,7 +1,5 @@
 #Flickr new tab extension for chrome#
 
-Download this extension from chrome store [here](https://chrome.google.com/webstore/detail/flickr-new-tab/okjegjakfleakclpecombdodpfdkahea).
-
 This extension brings life to the new tab page in chrome. Whenever a new tab is opened in chrome, this extension loads an image from the flickr public stream. You can choose the type of images that you want to see using tags in the extension. 
 
 Flickr already has an official extension in chrome store. But you cannot choose the type of images in that extension. It displays random photos every time you open the new tab. So I wanted to improve on that by displaying images according to user's wish.
